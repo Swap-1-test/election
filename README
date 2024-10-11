@@ -1,0 +1,10 @@
+docker exec -it root_db_1 psql -U user -d voting_db
+_________________________________________________________\
+CREATE TABLE votes (
+    id SERIAL PRIMARY KEY,
+    position VARCHAR(100),
+    candidate VARCHAR(100)
+);
+______________________________________________________________\
+SELECT * FROM votes;
+____________________________________________________________\

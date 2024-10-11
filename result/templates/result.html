@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Election Results</title>
+  </head>
+  <body>
+    <h2>Election Results</h2>
+    <table border="1">
+      <tr>
+        <th>Position</th>
+        <th>Candidate</th>
+        <th>Votes</th>
+      </tr>
+      {% for result in results %}
+        <tr>
+          <td>{{ result[0] }}</td>
+          <td>{{ result[1] }}</td>
+          <td>{{ result[2] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
