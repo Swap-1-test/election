@@ -2,6 +2,37 @@
 <html>
   <head>
     <title>Election Results</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+      }
+      h2 {
+        color: #333;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #4CAF50;
+        color: white;
+      }
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+      .winner {
+        font-weight: bold;
+        color: #4CAF50;
+      }
+    </style>
   </head>
   <body>
     <h2>Election Results</h2>
@@ -14,10 +45,16 @@
       {% for result in results %}
         <tr>
           <td>{{ result[0] }}</td>
-          <td>{{ result[1] }}</td>
+          <td class="{% if result[3] %}winner{% endif %}">{{ result[1] }}</td>
           <td>{{ result[2] }}</td>
         </tr>
       {% endfor %}
     </table>
+    <h3>Winners:</h3>
+    <ul>
+      {% for position, winner in winners.items() %}
+        <li>{{ position.replace('_', ' ').capitalize() }}: {{ winner }}</li>
+      {% endfor %}
+    </ul>
   </body>
 </html>
