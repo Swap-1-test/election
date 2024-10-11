@@ -1,4 +1,4 @@
-docker exec -it root_db_1 psql -U user -d voting_db
+docker exec -it election_db_1 psql -U user -d voting_db
 _________________________________________________________\
 CREATE TABLE votes (
     id SERIAL PRIMARY KEY,
