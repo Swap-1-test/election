@@ -1,60 +1,64 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Election Results</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        padding: 20px;
-      }
-      h2 {
-        color: #333;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-      }
-      th, td {
-        padding: 10px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-      }
-      th {
-        background-color: #4CAF50;
-        color: white;
-      }
-      tr:hover {
-        background-color: #f1f1f1;
-      }
-      .winner {
-        font-weight: bold;
-        color: #4CAF50;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .winner {
+            font-weight: bold;
+            color: green;
+            text-align: center;
+            margin: 20px 0;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <h2>Election Results</h2>
-    <table border="1">
-      <tr>
-        <th>Position</th>
-        <th>Candidate</th>
-        <th>Votes</th>
-      </tr>
-      {% for result in results %}
+    <table>
         <tr>
-          <td>{{ result[0] }}</td>
-          <td class="{% if result[3] %}winner{% endif %}">{{ result[1] }}</td>
-          <td>{{ result[2] }}</td>
+            <th>Position</th>
+            <th>Candidate</th>
+            <th>Votes</th>
         </tr>
-      {% endfor %}
+        {% for result in results %}
+            <tr>
+                <td>{{ result[0] }}</td>
+                <td>{{ result[1] }}</td>
+                <td>{{ result[2] }}</td>
+            </tr>
+        {% endfor %}
     </table>
-    <h3>Winners:</h3>
-    <ul>
-      {% for position, winner in winners.items() %}
-        <li>{{ position.replace('_', ' ').capitalize() }}: {{ winner }}</li>
-      {% endfor %}
-    </ul>
-  </body>
+
+    
+</body>
 </html>
