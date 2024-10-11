@@ -23,15 +23,12 @@ candidates = {
 @app.route('/', methods=['GET', 'POST'])
 def vote():
     if request.method == 'POST':
-        # Ensure 'candidate' is included in the form submission
-        candidate = request.form.get('candidate')
-        if candidate:
-            position = request.form.get('position')  # Ensure you have the position in your form
-            redis_conn.rpush('votes', f'{position}:{candidate}')
-            return redirect('/thankyou')
-        else:
-            return "Bad Request: Candidate not selected", 400
-
+        # Collect votes for each position
+        for position in candidates.keys():
+            candidate = request.form.get(position)  # Get the selected candidate for each position
+            if candidate:  # Check if a candidate was selected
+                redis_conn.rpush('votes', f'{position}:{candidate}')
+        return redirect('/thankyou')
     return render_template('vote.html', candidates=candidates)
 
 @app.route('/thankyou')
