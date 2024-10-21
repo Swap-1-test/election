@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .auth-container {
+            margin-top: 100px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Deogiri Institute of Engineering and Management Studies, Chh. Sambhajinagar</h1>
+    <div class="auth-container">
+        <form action="/auth" method="POST">
+            <input type="text" name="full_name" placeholder="Enter Full Name" required><br>
+            <input type="number" name="prn" placeholder="Enter PRN No." required><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

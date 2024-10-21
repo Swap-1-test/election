@@ -1,52 +1,58 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>College Election Voting</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        padding: 20px;
-      }
-      h2 {
-        color: #333;
-      }
-      form {
-        background: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-      h3 {
-        color: #444;
-      }
-      input[type="radio"] {
-        margin-right: 10px;
-      }
-      input[type="submit"] {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-      input[type="submit"]:hover {
-        background-color: #45a049;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h3 {
+            color: #444;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
     </style>
-  </head>
-  <body>
+    <script>
+        function disableButton(button) {
+            button.disabled = true;
+            button.form.submit();
+        }
+    </script>
+</head>
+<body>
     <h2>Vote for your candidates</h2>
     <form method="POST" action="/">
-      {% for position, candidate_list in candidates.items() %}
-        <h3>{{ position.replace('_', ' ').capitalize() }}</h3>
-        {% for candidate in candidate_list %}
-          <input type="radio" name="{{ position }}" value="{{ candidate }}">{{ candidate }}<br>
+        {% for position, candidate_list in candidates.items() %}
+            <h3>{{ position.replace('_', ' ').capitalize() }}</h3>
+            {% for candidate in candidate_list %}
+                <input type="radio" name="{{ position }}" value="{{ candidate }}">{{ candidate }}<br>
+            {% endfor %}
         {% endfor %}
-      {% endfor %}
-      <input type="submit" value="Submit Vote">
+        <input type="submit" value="Submit Vote" onclick="disableButton(this)">
     </form>
-  </body>
+</body>
 </html>
