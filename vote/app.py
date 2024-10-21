@@ -56,19 +56,24 @@ def vote():
             return redirect('/thankyou')
 
         # Collect votes for each position
+        votes_to_insert = []  # List to hold vote insertions
+
         for position in candidates.keys():
             candidate = request.form.get(position)  # Get the selected candidate for each position
             if candidate:  # Check if a candidate was selected
-                # Push vote data to Redis (this could be used for faster counting)
-                redis_conn.rpush('votes', f'{position}:{candidate}')
-                
-                # Insert vote into PostgreSQL along with voter's name and PRN
-                db_cursor.execute(
-                    "INSERT INTO votes (position, candidate, full_name, prn) VALUES (%s, %s, %s, %s)",
-                    (position, candidate, session['full_name'], session['prn'])
-                )
+                votes_to_insert.append((position, candidate, session['full_name'], session['prn']))
 
-        db_conn.commit()  # Save changes to the database
+        # Insert all votes at once
+        if votes_to_insert:
+            # Insert vote into PostgreSQL along with voter's name and PRN
+            db_cursor.executemany(
+                "INSERT INTO votes (position, candidate, full_name, prn) VALUES (%s, %s, %s, %s)",
+                votes_to_insert
+            )
+            db_conn.commit()  # Save changes to the database
+            # Push vote data to Redis (this could be used for faster counting)
+            for position, candidate, full_name, prn in votes_to_insert:
+                redis_conn.rpush('votes', f'{position}:{candidate}')
 
         return redirect('/thankyou')
 
