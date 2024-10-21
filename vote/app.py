@@ -20,6 +20,24 @@ candidates = {
     'secretary': ['Candidate C1', 'Candidate C2'],
     'treasurer': ['Candidate D1', 'Candidate D2']
 }
+# Function to create the votes table if it doesn't exist
+def create_votes_table():
+    create_table_query = '''
+    CREATE TABLE IF NOT EXISTS votes (
+        id SERIAL PRIMARY KEY,
+        position VARCHAR(50),
+        candidate VARCHAR(100),
+        full_name VARCHAR(100),
+        prn VARCHAR(50)
+    );
+    '''
+    db_cursor.execute(create_table_query)
+    db_conn.commit()
+
+# Call the function to create the table when the app starts
+create_votes_table()
+
+
 
 # Authentication page route
 @app.route('/auth', methods=['GET', 'POST'])
