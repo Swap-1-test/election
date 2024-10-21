@@ -40,23 +40,6 @@
             text-align: center;
             margin: 20px 0;
         }
-        .voter-details {
-            margin-top: 40px;
-            text-align: center;
-        }
-        .voter-details a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 10px;
-            border: 1px solid #007bff;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        .voter-details a:hover {
-            background-color: #007bff;
-            color: white;
-        }
     </style>
 </head>
 <body>
@@ -75,10 +58,8 @@
             </tr>
         {% endfor %}
     </table>
-
-    <!-- Voter Details Link -->
-    <div class="voter-details">
-        <a href="/details">View Voter Details</a>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/details" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">View Voter Details</a>
     </div>
 </body>
 </html>
