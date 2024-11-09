@@ -5,54 +5,120 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
+            background: linear-gradient(135deg, #f0f8ff, #fae1dd); /* Light gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .college-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
         h2 {
+            color: #009688;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .position-section {
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .position-title {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .candidate-box {
+            display: inline-block;
+            width: 40%;
+            background-color: #ffffff;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin: 6px;
+            padding: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            font-size: 14px;
             color: #333;
         }
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+        .candidate-box:hover, .candidate-box.selected {
+            background-color: #ffe0b2; /* Soft orange color */
+            border-color: #ff9800; /* Darker orange border */
         }
-        h3 {
-            color: #444;
-        }
+
         input[type="radio"] {
-            margin-right: 10px;
+            display: none;
         }
+
         input[type="submit"] {
-            background-color: #4CAF50;
+            background-color: #ff5722;
             color: white;
-            padding: 10px 15px;
+            padding: 10px 20px;
+            font-size: 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 15px;
         }
+
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: #e64a19;
         }
+
     </style>
     <script>
-        function disableButton(button) {
-            button.disabled = true;
-            button.form.submit();
+        function selectCandidate(position, box) {
+            const boxes = document.querySelectorAll(`.candidate-box[data-position="${position}"]`);
+            boxes.forEach(b => b.classList.remove('selected'));
+            box.classList.add('selected');
+            box.querySelector('input').checked = true;
         }
     </script>
 </head>
 <body>
-    <h2>Vote for your candidates</h2>
-    <form method="POST" action="/">
-        {% for position, candidate_list in candidates.items() %}
-            <h3>{{ position.replace('_', ' ').capitalize() }}</h3>
-            {% for candidate in candidate_list %}
-                <input type="radio" name="{{ position }}" value="{{ candidate }}">{{ candidate }}<br>
+    <div class="container">
+        <div class="college-name">Deogiri Institute of Engineering and Management Studies, Chh. Sambhajinagar</div>
+        <h2>Vote for Your Candidates</h2>
+        <form method="POST" action="/">
+            {% for position, candidate_list in candidates.items() %}
+                <div class="position-section">
+                    <div class="position-title">{{ position.replace('_', ' ').capitalize() }}</div>
+                    {% for candidate in candidate_list %}
+                        <div class="candidate-box" onclick="selectCandidate('{{ position }}', this)" data-position="{{ position }}">
+                            <input type="radio" name="{{ position }}" value="{{ candidate }}">
+                            {{ candidate }}
+                        </div>
+                    {% endfor %}
+                </div>
             {% endfor %}
-        {% endfor %}
-        <input type="submit" value="Submit Vote" onclick="disableButton(this)">
-    </form>
+            <input type="submit" value="Submit Vote">
+        </form>
+    </div>
 </body>
 </html>
+
