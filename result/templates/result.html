@@ -7,60 +7,124 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #00b4d8, #0077b6, #0096c7);  /* Cool gradient background */
             margin: 0;
             padding: 20px;
-        }
-        h2 {
-            text-align: center;
+            position: relative;
+            min-height: 100vh;  /* Ensure the body is tall enough for positioning the button */
             color: #333;
         }
-        table {
-            width: 100%;
-            margin: 20px 0;
-            border-collapse: collapse;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        th, td {
-            padding: 12px;
+
+        h2 {
             text-align: center;
-            border: 1px solid #ddd;
-            background-color: #fff;
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 20px;
         }
-        th {
+
+        .college-name h2 {
+            font-size: 1.5em;
+            color: white;
+            margin: 10px 0;
+            font-weight: normal;
+        }
+
+        .position-box {
+            background-color: rgba(255, 255, 255, 0.9);  /* Semi-transparent white */
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .position-box h3 {
+            margin-top: 0;
+            color: #0077b6;
+            font-size: 1.5em;
+        }
+
+        .candidate-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .candidate-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .candidate-item:last-child {
+            border-bottom: none;
+        }
+
+        .votes {
+            font-weight: bold;
+        }
+
+        .winner {
+            color: green;
+        }
+
+        .view-details-button {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 20px;
             background-color: #007bff;
             color: white;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        .winner {
-            font-weight: bold;
-            color: green;
+            text-decoration: none;
+            border-radius: 5px;
             text-align: center;
-            margin: 20px 0;
+        }
+
+        /* Style for the download button */
+        .download-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .download-btn:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <h2>Election Results</h2>
-    <div class="college-name"><h2>Deogiri Institute of Engineering and Management Studies, Chh. Sambhajinagar</h2></div>
-    <table>
-        <tr>
-            <th>Position</th>
-            <th>Candidate</th>
-            <th>Votes</th>
-        </tr>
-        {% for result in results %}
-            <tr>
-                <td>{{ result[0] }}</td>
-                <td>{{ result[1] }}</td>
-                <td>{{ result[2] }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="/details" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">View Voter Details</a>
+    <div class="college-name">
+        <h2>Deogiri Institute of Engineering and Management Studies, Chh. Sambhajinagar</h2>
     </div>
+
+    <!-- Loop through each position -->
+    {% for position, candidates in results.items() %}
+        <div class="position-box">
+            <h3>{{ position }}</h3>
+            <ul class="candidate-list">
+                {% for candidate, votes in candidates %}
+                    <li class="candidate-item">
+                        <span>{{ candidate }}</span>
+                        <span class="votes">{{ votes }} Votes</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+    <a href="/details" class="view-details-button">View Voter Details</a>
+
+    <!-- Download Button at the bottom-right -->
+    <a href="{{ url_for('download_results') }}" class="download-btn">Download Position-wise Vote Counts</a>
+
 </body>
 </html>
