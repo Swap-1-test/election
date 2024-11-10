@@ -16,7 +16,7 @@ services:
   vote-app:
     build: ./vote
     ports:
-      - "5000:5000"
+      - "3000:3000"
     environment:
       - DATABASE_URL=postgresql://user:password@db:5432/voting_db
       - REDIS_URL=redis://redis:6379/0
@@ -24,7 +24,7 @@ services:
   result-app:
     build: ./result
     ports:
-      - "5001:5001"
+      - "3001:3001"
     environment:
       - DATABASE_URL=postgresql://user:password@db:5432/voting_db
 
